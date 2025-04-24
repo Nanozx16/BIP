@@ -1,0 +1,41 @@
+Add utility for creating a new monorepo package (#3581)
+## Explanation
+
+Manually a new monorepo package can be a tedious, even frustrating
+process. To spare us from that suffering, this PR adds a CLI that
+automates most of the job for us, creatively titled `create-package`.
+
+Most of the context / explanation for what this is and how it works can
+be found in a new section within the [contributor
+documentation](https://github.com/MetaMask/core/blob/create-package/docs/contributing.md#adding-new-packages).
+In addition, here's the output of `yarn create-package --help`:
+
+```text
+create-package <cmd> [args]
+
+Commands:
+  create-package new      Create a new monorepo
+                          package. Handles a lot
+                          of the boilerplate for
+                          you.
+  create-package default  Create a new monorepo
+                          package with default
+                          values.
+
+Options:
+  -h, --help  Show help                  [boolean]
+```
+
+### Use of Babel
+
+This PR introduces a new directory, `./scripts/create-package`, and
+100%-coverage tests for this directory. Due to some kind of ESM-related
+incompatibility between version `^27.0.0` of `jest` / `ts-jest` and
+TypeScript `4.0.0` / `5.0.0`, these tests use `babel-jest` instead of
+`ts-jest`. This required pulling in a suite of Babel development
+dependencies. Local testing indicates that we can switch back to
+`ts-jest` we've bumped the monorepo to `jest@^29`.
+
+## References
+
+N/A
